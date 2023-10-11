@@ -158,7 +158,7 @@ impl RecordBatch {
             .or_else(|| columns.first().map(|col| col.len()))
             .ok_or_else(|| {
                 ArrowError::InvalidArgumentError(
-                    "must either specify a row count or at least one column".to_string(),
+                    format!("must either specify a row count or at least one column, schema: {:#?}, columns: {:#?}", schema, columns),
                 )
             })?;
 
