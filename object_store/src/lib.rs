@@ -1290,9 +1290,9 @@ impl From<Error> for std::io::Error {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::buffered::BufWriter;
+    
     use chrono::TimeZone;
-    use tokio::io::AsyncWriteExt;
+    
 
     macro_rules! maybe_skip_integration {
         () => {
@@ -1302,7 +1302,7 @@ mod tests {
             }
         };
     }
-    pub(crate) use maybe_skip_integration;
+    
 
     /// Test that the returned stream does not borrow the lifetime of Path
     fn list_store<'a>(
