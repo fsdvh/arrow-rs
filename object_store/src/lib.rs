@@ -38,14 +38,11 @@
 //!
 //! # Highlights
 //!
-//! 1. A high-performance async API focused on providing a consistent interface
-//! mirroring that of object stores such as [S3]
+//! 1. A high-performance async API focused on providing a consistent interface mirroring that of object stores such as [S3]
 //!
-//! 2. Production quality, leading this crate to be used in large
-//! scale production systems, such as [crates.io] and [InfluxDB IOx]
+//! 2. Production quality, leading this crate to be used in large scale production systems, such as [crates.io] and [InfluxDB IOx]
 //!
-//! 3. Support for advanced functionality, including atomic, conditional reads
-//! and writes, vectored IO, bulk deletion, and more...
+//! 3. Support for advanced functionality, including atomic, conditional reads and writes, vectored IO, bulk deletion, and more...
 //!
 //! 4. Stable and predictable governance via the [Apache Arrow] project
 //!
@@ -97,8 +94,7 @@
 //! * All operations are atomic, and readers cannot observe partial and/or failed writes
 //! * Methods map directly to object store APIs, providing both efficiency and predictability
 //! * Abstracts away filesystem and operating system specific quirks, ensuring portability
-//! * Allows for functionality not native to filesystems, such as operation preconditions
-//! and atomic multipart uploads
+//! * Allows for functionality not native to filesystems, such as operation preconditions and atomic multipart uploads
 //!
 //! This crate does provide [`BufReader`] and [`BufWriter`] adapters
 //! which provide a more filesystem-like API for working with the
@@ -911,7 +907,7 @@ pub struct ObjectMeta {
 }
 
 /// Options for a get request, such as range
-#[derive(Debug, Default)]
+#[derive(Debug, Default, Clone)]
 pub struct GetOptions {
     /// Request will succeed if the `ObjectMeta::e_tag` matches
     /// otherwise returning [`Error::Precondition`]
@@ -1291,8 +1287,10 @@ impl From<Error> for std::io::Error {
 mod tests {
     use super::*;
     use crate::buffered::BufWriter;
+
     use chrono::TimeZone;
     use tokio::io::AsyncWriteExt;
+
 
     macro_rules! maybe_skip_integration {
         () => {
